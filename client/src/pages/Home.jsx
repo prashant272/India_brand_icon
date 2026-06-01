@@ -1091,7 +1091,7 @@ export default function Home() {
                       flex items-center justify-center p-6
                     ">
                       {partner.logo ? (
-                        <img src={partner.logo} alt={partner.name} className="w-full h-full object-contain filter group-hover:scale-110 transition-transform duration-500" loading="lazy" />
+                        <img src={partner.logo} alt={partner.name || "Partner Logo"} className="w-full h-full object-contain filter group-hover:scale-110 transition-transform duration-500" loading="lazy" />
                       ) : (
                         <span className="text-amber-400 text-4xl font-black">{partner.name?.[0]}</span>
                       )}

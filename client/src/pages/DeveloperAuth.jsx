@@ -72,9 +72,9 @@ export default function DeveloperAuth() {
                                     <span className="w-2.5 h-2.5 rounded-full bg-amber-500 animate-pulse shadow-[0_0_15px_rgba(16,185,129,0.6)]" />
                                     <span className="text-[10px] font-black uppercase tracking-[0.5em] text-amber-400/80">Protocol: Secure_Bypass</span>
                                 </div>
-                                <h1 className="text-4xl md:text-5xl font-black text-white uppercase tracking-tighter mb-3 leading-none">
+                                <h2 className="text-4xl md:text-5xl font-black text-white uppercase tracking-tighter mb-3 leading-none">
                                     Prime <span className="text-gradient-amber">Developer</span> Console
-                                </h1>
+                                </h2>
                                 <p className="text-amber-100/30 text-[10px] font-black uppercase tracking-[0.3em]">Authorized Access — Node 9982</p>
                             </div>
                             <button

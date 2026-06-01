@@ -107,7 +107,7 @@ export default function Contact() {
                 </div>
 
                 {/* Location */}
-                <div className="space-y-6">
+                <address className="space-y-6 not-italic">
                   {/* Delhi Office */}
                   <div className="space-y-3">
                     <ContactItem
@@ -157,7 +157,7 @@ export default function Contact() {
                       ></iframe>
                     </div>
                   </div>
-                </div>
+                </address>
               </div>
             </SlideIn>
 
