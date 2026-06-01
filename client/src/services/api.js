@@ -3,7 +3,7 @@
 export function getBaseUrl() {
   // Use production API URL explicitly when running in production mode
   if (import.meta.env?.PROD) {
-    return "https://api.globalindia brand iconawards.com";
+    return "https://api.indiabrandicon.in/api";
   }
 
   // Prefer explicit API base URL if provided in .env
