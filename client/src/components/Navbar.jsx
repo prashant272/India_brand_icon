@@ -192,7 +192,7 @@ export default function Navbar() {
             </div>
           </div>
           <nav className="bg-transparent h-12">
-            <div className="max-w-7xl mx-auto px-6 h-full flex justify-center items-center gap-4 lg:gap-5 xl:gap-6 text-[13px] lg:text-sm xl:text-[15px]">
+            <div className="max-w-full mx-auto px-2 h-full flex justify-center items-center gap-1.5 lg:gap-2.5 xl:gap-3.5 text-[11px] lg:text-xs xl:text-[13px]">
               {menuLinks("white", undefined, headerRef, isUser, false, editions, upcomingEditions)}
             </div>
           </nav>
@@ -207,7 +207,7 @@ export default function Navbar() {
                bg-slate-950/85 backdrop-blur-lg text-white 
                rounded-full shadow-[0_25px_60px_rgba(0,0,0,0.6),0_0_30px_rgba(16,185,129,0.25)] 
                border border-indigo-500/30 
-               px-6 lg:px-6 xl:px-8 py-2.5 flex items-center gap-4 lg:gap-6 xl:gap-10 text-[13px] lg:text-sm xl:text-[15px]
+               px-4 lg:px-6 py-2.5 flex items-center gap-2 lg:gap-3 text-[11px] lg:text-xs xl:text-[13px]
                group
              "
             style={{
@@ -230,7 +230,7 @@ export default function Navbar() {
               </a>
               <div className="h-6 w-px bg-white/10 mx-1"></div>
             </div>
-            <div className="relative flex gap-4 lg:gap-5 xl:gap-6 items-center z-10">
+            <div className="relative flex gap-1.5 lg:gap-2.5 xl:gap-3.5 items-center z-10">
               {menuLinks("white", undefined, headerRef, isUser, false, editions, upcomingEditions)}
             </div>
           </div>
@@ -345,14 +345,14 @@ function NavItem({ to, icon, label, color, onClick, isSpecial }) {
         to={to}
         onClick={onClick}
         className={({ isActive }) =>
-          `relative flex items-center gap-1.5 px-4 py-1.5 rounded-full font-bold transition-all duration-300 ${
+          `relative flex items-center gap-1 px-3 py-1 rounded-full font-bold text-[10px] lg:text-[11px] xl:text-xs whitespace-nowrap transition-all duration-300 ${
             isActive 
               ? "bg-amber-500 text-black shadow-[0_0_20px_rgba(245,158,11,0.9)] scale-105" 
               : "bg-amber-500 text-black shadow-[0_0_15px_rgba(245,158,11,0.7)] hover:shadow-[0_0_25px_rgba(245,158,11,1)] hover:scale-105"
           }`
         }
       >
-        <span className="text-[11px]">{icon}</span>
+        <span className="text-[10px]">{icon}</span>
         <span>{label}</span>
       </NavLink>
     );
@@ -364,16 +364,16 @@ function NavItem({ to, icon, label, color, onClick, isSpecial }) {
       to={to}
       onClick={onClick}
       className={({ isActive }) =>
-        `flex items-center gap-1 ${isActive
+        `flex items-center gap-0.5 whitespace-nowrap ${isActive
           ? `font-semibold border-b-2 ${color === "white" ? "border-white" : "border-black"
           }`
           : color === "white"
-            ? "opacity-80 hover:opacity-100"
+            ? "opacity-80 hover:opacity-100 text-white"
             : "text-gray-700 hover:text-black"
         }`
       }
     >
-      <span className="text-[11px]">{icon}</span>
+      <span className="text-[10px]">{icon}</span>
       <span>{label}</span>
     </NavLink>
   );

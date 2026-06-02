@@ -20,19 +20,9 @@ import { useNavigate } from "react-router-dom";
 // Centralized medical background
 
 export default function Home() {
-  const videoRef = useRef(null);
   const navigate = useNavigate();
   const { isAuthenticated, user } = useAuth();
   const sectionRefs = useRef([]);
-
-  // Removed local video playbackRate effect as we've switched to YouTube embed
-  const [isVideoLoaded, setIsVideoLoaded] = useState(false);
-
-  useEffect(() => {
-    // Delay heavy iframe load to unblock main thread
-    const timer = setTimeout(() => setIsVideoLoaded(true), 2000);
-    return () => clearTimeout(timer);
-  }, []);
 
   const [editions, setEditions] = useState([]);
   const [editionsLoading, setEditionsLoading] = useState(true);
@@ -303,191 +293,45 @@ export default function Home() {
   };
 
   return (
-    <div className={`w-full text-[#f5f3f0]  `}>
+    <div className="w-full text-[#f5f3f0] pt-15 sm:pt-24">
       {/* SEO H1 - Hidden */}
-      <h1 className="sr-only mt-24 ">
+      <h1 className="sr-only">
         India Brand Icon Award & Conference, 2026 – India Brand Icon Award & Conference, 2026 by TIME Cyber Media Pvt Ltd
       </h1>
       {/* ================= HERO ================= */}
-      <section className="relative min-h-screen w-full overflow-hidden">
-        {/* ===== BACKGROUND VIDEO: Responsive & Premium ===== */}
-        <div className="absolute inset-0 z-0 w-full h-full pointer-events-none select-none overflow-hidden ">
-          <div
-            className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 transition-opacity duration-1000"
-            style={{
-              width: "100vw",
-              height: "56.25vw",
-              minHeight: "100vh",
-              minWidth: "177.77vh",
-              opacity: isVideoLoaded ? 1 : 0
-            }}
-          >
-            {isVideoLoaded && (
-              <iframe
-                className="absolute inset-0 w-full h-full"
-                src="https://www.youtube.com/embed/Th0wptIA0f4?autoplay=1&mute=1&loop=1&playlist=Th0wptIA0f4&start=35&controls=0&showinfo=0&rel=0&iv_load_policy=3&modestbranding=1&enablejsapi=1"
-                title="India Brand Icon Award & Conference, 2026 Background"
-                frameBorder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
-                style={{
-                  pointerEvents: "none",
-                  transform: "scale(1.4)", // Zoom in slightly to hide black bars/UI
-                }}
-              ></iframe>
-            )}
-          </div>
-          {/* Fallback Image for mobile if video fails */}
-          <noscript>
-            <img
-              src="/videos/hero-poster.jpg"
-              alt="Award Ceremony"
-              loading="lazy"
-              className="w-full h-full object-cover object-center"
-            />
-          </noscript>
-          {/* Top, bottom subtle overlays for extra premium depth */}
-          <div className="absolute top-0 left-0 w-full h-1/6 bg-gradient-to-b from-black/60 via-transparent to-transparent pointer-events-none" />
-          <div className="absolute bottom-0 left-0 w-full h-1/6 bg-gradient-to-t from-[#2d180a]/80 via-transparent to-transparent pointer-events-none" />
-        </div>
+      <section className="max-w-7xl mx-auto px-4 sm:px-4 mb-2 sm:mb-2">
+        <div className="relative w-full rounded-[2rem] sm:rounded-[3rem] overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.5)] group border border-white/10 bg-black/20 select-none">
+          <img
+            src="/indiabrand-icon-award.jpeg"
+            alt="India Brand Icon 2026 Banner"
+            className="w-full h-auto block filter brightness-[0.9] contrast-[1.02]"
+          />
+          {/* Subtle overlay gradients for extra depth */}
+          <div className="absolute inset-0 bg-gradient-to-t from-[#020617] via-indigo-950/10 to-transparent opacity-80 pointer-events-none" />
+          <div className="absolute inset-0 bg-gradient-to-r from-[#020617]/30 via-transparent to-[#020617]/30 pointer-events-none" />
 
-        {/* ===== LIGHTER GRADIENT OVERLAY ===== */}
-        <div className="absolute inset-0 z-10 pointer-events-none bg-gradient-to-b from-slate-950/40 via-transparent to-slate-950/50" />
-
-        {/* ===== CONTENT ===== */}
-        <div className="relative z-20 flex min-h-screen flex-col items-center justify-center px-4 sm:px-6 md:px-8 pt-22 pb-12 text-center">
-
-          {/* ===== HERO TEXT ===== */}
-          <div className="max-w-[48rem] mx-auto space-y-2 sm:space-y-1 animate-fade-in pt-0.5 relative z-20">
-            {/* Backdrop Spotlight */}
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] -z-10 pointer-events-none rounded-full" style={{ background: 'radial-gradient(circle, rgba(201, 168, 76, 0.15) 0%, transparent 60%)' }} />
-
-            <h1 className="text-[16px] xs:text-[20px] sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-black font-heading tracking-tight leading-tight text-white px-2 [text-shadow:_0_0_30px_rgba(201,168,76,0.4),_0_0_60px_rgba(201,168,76,0.2)]">
-              <span className="inline-block whitespace-nowrap text-center">
-                <span className="text-[#fff8e7] drop-shadow-[0_0_15px_rgba(201,168,76,0.4)]">India</span>{" "}
-                <span className="bg-gradient-to-r from-[#F5DFA0] via-white to-[#E8C96D] bg-clip-text text-transparent inline-block font-black filter drop-shadow-[0_0_50px_rgba(201,168,76,0.8)]">
-                  Brand Icon
-                </span>{" "}
-                <span className="text-[#fff8e7] drop-shadow-[0_0_15px_rgba(201,168,76,0.4)]">Awards</span>
-                <span className="text-[#fff8e7] drop-shadow-[0_0_15px_rgba(201,168,76,0.4)]">, 2026</span>
-              </span>
-            </h1>
-            <div className="mx-auto w-24 sm:w-32 h-1 bg-gradient-to-r from-transparent via-[#C9A84C] to-transparent rounded-full -mt-2" />
-            <p className="mt-2 text-[12px] xs:text-[14px] sm:text-base md:text-lg lg:text-xl text-white font-black leading-relaxed [text-shadow:_0_2px_15px_rgba(0,0,0,1)] max-w-none mx-auto whitespace-normal sm:whitespace-nowrap">
-              Organised by{" "}
-              <span className="bg-gradient-to-r from-[#F5DFA0] to-[#E8C96D] bg-clip-text text-transparent font-black drop-shadow-[0_0_10px_rgba(201,168,76,0.6)]">
-                TIME Cyber Media Pvt Ltd.
-              </span>{" "}
-              –  Award Events
-            </p>
-          </div>
-
-          {/* ===== EVENTS SECTION ===== */}
-          <div className="w-full max-w-[1600px] mx-auto relative z-30">
-            <div className="w-full relative z-15 px-3">
-              {(() => {
-                const EventCard = ({ event }) => (
-                  <div className="group relative w-full max-w-[95%] sm:max-w-[520px] mx-auto h-full min-h-[450px] flex flex-col rounded-[1.5rem] overflow-hidden transition-all duration-700 hover:-translate-y-3 hover:scale-[1.02] p-4 xs:p-5 sm:p-6 md:p-8 bg-slate-900/40 bg-black/20 backdrop-blur-md border border-white/20 shadow-2xl shadow-black/60">
-
-                    {/* 4 Corner Brackets */}
-                    <div className="absolute top-4 left-4 w-4 h-4 border-t-2 border-l-2 border-amber-500/40 rounded-tl-lg" />
-                    <div className="absolute top-4 right-4 w-4 h-4 border-t-2 border-r-2 border-amber-500/40 rounded-tr-lg" />
-                    <div className="absolute bottom-4 left-4 w-4 h-4 border-b-2 border-l-2 border-amber-500/40 rounded-bl-lg" />
-                    <div className="absolute bottom-4 right-4 w-4 h-4 border-b-2 border-r-2 border-amber-500/40 rounded-br-lg" />
-
-                    {/* Decorative Header (Absolute Top) */}
-                    <div className="relative flex items-center gap-2.5 mb-2">
-                      <div className="w-9 h-9 bg-amber-500/20  rounded-xl border border-amber-500/30 flex items-center justify-center shadow-xl">
-                        <svg className="w-4 h-4 text-amber-400" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
-                          <path d="M12 2l2.39 7.24h7.61l-6.19 4.5L16.92 22 12 17.27 7.08 22l1.11-8.26-6.19-4.5h7.61L12 2z" />
-                        </svg>
-                      </div>
-                      <div className="h-[1px] flex-1 bg-gradient-to-r from-amber-500/50 to-transparent" />
-                    </div>
-
-                    {/* Title (Centered) */}
-                    <h3 className="text-lg sm:text-xl lg:text-2xl font-black text-white leading-tight drop-shadow-2xl text-center relative z-10 mb-2">
-                      {event.title}
-                    </h3>
-
-                    {/* Left-Aligned Description & Data */}
-                    <div className="flex-1 flex flex-col justify-start text-left space-y-2.5 relative z-10">
-                      <p className="text-white/80 text-xs sm:text-sm font-medium leading-relaxed">
-                        {event.desc}
-                      </p>
-
-                      {/* Side-by-Side Data Boxes */}
-                      <div className="grid grid-cols-2 gap-2.5 mt-10">
-                        <div className="bg-white/5  p-2 rounded-2xl border border-white/10 flex flex-col items-center justify-center min-h-[3.4rem]">
-                          <div className="flex items-center gap-1.5 mb-0.5 w-full justify-center">
-                            <svg className="w-3 h-3 text-amber-400 shrink-0" fill="none" stroke="currentColor" strokeWidth={2.5} viewBox="0 0 24 24"><path d="M8 7V3m8 4V3M3 11h18M5 5h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2z" /></svg>
-                            <span className="text-[7px] font-black text-amber-400 uppercase tracking-widest">DATE</span>
-                          </div>
-                          <span className="font-bold text-white text-[10px] sm:text-[12px] text-center leading-tight whitespace-normal">{event.date}</span>
-                        </div>
-                        <div className="bg-white/5  p-2 rounded-2xl border border-white/10 flex flex-col items-center justify-center min-h-[3.4rem]">
-                          <div className="flex items-center gap-1.5 mb-0.5 w-full justify-center">
-                            <svg className="w-3 h-3 text-cyan-400 shrink-0" fill="none" stroke="currentColor" strokeWidth={2.5} viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 1 1 18 0z" /><circle cx="12" cy="10" r="3" /></svg>
-                            <span className="text-[7px] font-black text-cyan-400 uppercase tracking-widest">VENUE</span>
-                          </div>
-                          <span className="font-bold text-white text-[10px] sm:text-[12px] text-center leading-tight whitespace-normal">{event.place}</span>
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* Dual Equal-Width Buttons */}
-                    <div className="grid grid-cols-2 gap-2.5 mt-4 sm:mt-6 mb-4">
-                      <button onClick={() => navigate("/nominate")}
-                        className="bg-gradient-to-r from-amber-500 to-amber-700 py-2.5 rounded-lg font-black text-white shadow-lg hover:shadow-amber-500/40 transition-all duration-300 flex items-center justify-center gap-1.5 text-[9px] sm:text-[11px] uppercase tracking-wider">
-                        NOMINATE <svg className="w-2.5 h-2.5" fill="none" stroke="currentColor" strokeWidth={3} viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
-                      </button>
-                      <button onClick={() => navigate(`/edition/${event._id || event.id}`)}
-                        className="bg-white/10  border border-white/20 py-2.5 rounded-lg font-black text-amber-400 shadow-lg hover:bg-white/20 transition-all duration-300 flex items-center justify-center gap-1.5 text-[9px] sm:text-[11px] uppercase tracking-wider">
-                        MORE INFO <svg className="w-2.5 h-2.5" fill="none" stroke="currentColor" strokeWidth={3} viewBox="0 0 24 24"><path d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-                      </button>
-                    </div>
-
-                    {/* Shine Effect */}
-                    <div className="absolute inset-0 bg-gradient-to-br from-white/10 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-1000 pointer-events-none" />
-                  </div>
-                );
-
-                if (events.length === 1) {
-                  return (
-                    <div className="flex justify-center w-full pb-5 pt-3">
-                      <EventCard event={events[0]} />
-                    </div>
-                  );
-                }
-
-                const displayEvents = events.length > 0 && events.length < 6
-                  ? [...events, ...events]
-                  : events;
-
-                return (
-                  <Swiper
-                    modules={[Autoplay, Pagination]}
-                    spaceBetween={24}
-                    slidesPerView={1}
-                    loop={displayEvents.length > 1}
-                    autoplay={{ delay: 3500, disableOnInteraction: false }}
-                    speed={1200}
-                    pagination={{ clickable: true, dynamicBullets: true }}
-                    breakpoints={{
-                      640: { slidesPerView: 1, spaceBetween: 7 },
-                      768: { slidesPerView: 2, spaceBetween: 7 },
-                      1024: { slidesPerView: 2, spaceBetween: 7 },
-                    }}
-                    className="hero-swiper w-full pb-16"
-                  >
-                    {displayEvents.map((event, index) => (
-                      <SwiperSlide key={index} className="h-auto flex justify-center py-2 px-2">
-                        <EventCard event={event} />
-                      </SwiperSlide>
-                    ))}
-                  </Swiper>
-                );
-              })()}
+          {/* ===== CONTENT (Call-to-action buttons layered on bottom of banner) ===== */}
+          <div className="absolute bottom-4 sm:bottom-8 md:bottom-12 left-1/2 -translate-x-1/2 z-20 w-full flex flex-col items-center justify-center px-4 text-center">
+            {/* Dock containing Nominate and Info buttons */}
+            <div className="flex flex-row gap-3 sm:gap-4 w-full max-w-sm sm:max-w-md justify-center">
+              <button
+                onClick={() => navigate("/nominate")}
+                className="flex-1 bg-gradient-to-r from-amber-400 via-amber-500 to-amber-600 hover:from-amber-500 hover:to-amber-700 py-2 sm:py-3.5 px-4 sm:px-6 rounded-xl font-black text-slate-950 shadow-2xl shadow-amber-500/20 hover:shadow-amber-500/40 transition-all duration-300 flex items-center justify-center gap-1.5 sm:gap-2 text-[10px] sm:text-xs md:text-sm uppercase tracking-wider cursor-pointer transform hover:-translate-y-0.5 active:scale-95"
+              >
+                Nominate Now
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={3} viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
+                </svg>
+              </button>
+              <button
+                onClick={() => navigate("/jury")}
+                className="flex-1 bg-slate-950/80 backdrop-blur-md border border-white/10 hover:bg-slate-900 py-2 sm:py-3.5 px-4 sm:px-6 rounded-xl font-black text-amber-400 hover:text-white shadow-2xl transition-all duration-300 flex items-center justify-center gap-1.5 sm:gap-2 text-[10px] sm:text-xs md:text-sm uppercase tracking-wider cursor-pointer transform hover:-translate-y-0.5 active:scale-95"
+              >
+                More Info
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={3} viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M11.25 11.25l.041-.02a.75.75 0 11.054.02-.054.054 0 00-.095 0zm0 4.3v-2.6m8.25-1.95a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+              </button>
             </div>
           </div>
         </div>
