@@ -45,9 +45,9 @@ export default function ForgotPassword() {
 
                         <div className="w-full glass-card border border-white/10 rounded-[2.5rem] p-6 sm:p-8 md:px-12 md:py-10 shadow-[0_32px_64px_-16px_rgba(0,0,0,0.5)]">
                             <div className="text-center mb-6">
-                                <h1 className="text-4xl md:text-5xl font-black bg-gradient-to-b from-white via-white to-[#d4af37] bg-clip-text text-transparent tracking-tighter mb-3">
+                                <h2 className="text-4xl md:text-5xl font-black bg-gradient-to-b from-white via-white to-[#d4af37] bg-clip-text text-transparent tracking-tighter mb-3">
                                     Recover
-                                </h1>
+                                </h2>
                                 <p className="text-gray-500 text-[11px] font-black uppercase tracking-[0.3em] ml-1">
                                     Reset Your Credentials
                                 </p>

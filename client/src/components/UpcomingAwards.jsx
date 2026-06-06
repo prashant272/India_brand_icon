@@ -22,7 +22,7 @@ function AwardCard({ edition }) {
                     {edition.images && edition.images.length > 0 ? (
                         <img
                             src={edition.images[0]}
-                            alt={edition.title}
+                            alt={edition.title || "Upcoming Award"}
                             className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-1000 opacity-90 group-hover:opacity-100"
                             loading="lazy"
                         />

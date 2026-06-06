@@ -217,7 +217,7 @@ export default function Footer() {
               </div>
 
               {/* ==== REACH US ==== */}
-              <div className="text-left">
+              <address className="text-left not-italic">
                 <h3
                   className="font-semibold mb-5 text-lg text-[#f8fafc] tracking-wide
                     border-l-4 pl-3 border-amber-500/40"
@@ -262,7 +262,7 @@ export default function Footer() {
                     </div>
                   </div>
                 </div>
-              </div>
+              </address>
             </div>
           </div>
 
