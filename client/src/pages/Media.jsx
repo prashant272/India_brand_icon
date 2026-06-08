@@ -123,7 +123,7 @@ export default function Media() {
                               {item.media.type === 'image' ? (
                                 <img
                                   src={item.media.src}
-                                  alt={item.label}
+                                  alt={item.label || "Media Item"}
                                   className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
                                   onError={(e) => {
                                     e.target.onerror = null;

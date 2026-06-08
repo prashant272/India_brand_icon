@@ -171,7 +171,7 @@ export default function AdminUpcomingEditions({ customToken }) {
                             {edition.images && edition.images.length > 0 ? (
                                 <img
                                     src={edition.images[0]}
-                                    alt={edition.title}
+                                    alt={edition.title || "Edition Image"}
                                     className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000 opacity-60 group-hover:opacity-80"
                                 />
                             ) : (

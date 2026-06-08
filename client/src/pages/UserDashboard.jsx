@@ -82,9 +82,9 @@ export default function UserDashboard() {
                                     </div>
                                 </div>
                                 <div>
-                                    <h1 className="text-2xl md:text-3xl font-bold text-white mb-2">
+                                    <h2 className="text-2xl md:text-3xl font-bold text-white mb-2">
                                         Welcome, <span className="text-amber-400">{user?.name?.split(' ')[0]}</span>
-                                    </h1>
+                                    </h2>
                                     <div className="flex items-center gap-2 text-amber-100/60 text-[11px] font-bold uppercase tracking-wider">
                                         <UserCircle className="w-4 h-4" /> {user?.email}
                                     </div>

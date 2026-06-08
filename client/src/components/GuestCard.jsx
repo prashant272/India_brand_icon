@@ -69,7 +69,7 @@ export default function GuestCard({ member, index, isFeatured = false }) {
             {!imgError ? (
               <img
                 src={imgSrc}
-                alt={member.name}
+                alt={member.name || "Guest Member"}
                 className="h-full w-full rounded-full object-cover bg-black border-4"
                 style={{
                   borderColor: "rgba(255,255,255,0.2)",

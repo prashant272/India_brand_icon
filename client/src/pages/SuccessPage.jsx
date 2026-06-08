@@ -28,9 +28,9 @@ export default function SuccessPage() {
                                     </div>
                                 </div>
 
-                                <h1 className="text-3xl md:text-5xl font-black text-white mb-4 tracking-tighter">
+                                <h2 className="text-3xl md:text-5xl font-black text-white mb-4 tracking-tighter">
                                     Submission <span className="text-gradient-amber">Successful!</span>
-                                </h1>
+                                </h2>
 
                                 <p className="text-amber-100/60 text-base mb-10 leading-relaxed font-bold italic">
                                     Your nomination has been successfully received. Our team of experts will review your profile and connect with you shortly.

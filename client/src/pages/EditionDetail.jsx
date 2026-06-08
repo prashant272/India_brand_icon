@@ -223,11 +223,11 @@ export default function EditionDetail() {
                             </span>
                             <div className="h-px w-8 bg-gradient-to-l from-transparent to-[#d4af37]"></div>
                         </div>
-                        <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-black mb-8 leading-[1.15] tracking-tight">
+                        <h2 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-black mb-8 leading-[1.15] tracking-tight">
 
                             <br className="hidden sm:block" />
                             <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#D4AF37] via-[#FFF3C7] to-[#AA771C] drop-shadow-[0_2px_15px_rgba(212,175,55,0.3)]"> {edition?.title || "Awards"} {displayYear}</span>
-                        </h1>
+                        </h2>
                         <p className="text-base sm:text-xl text-slate-300 leading-relaxed max-w-3xl mx-auto whitespace-pre-line font-medium">
                             {edition?.hero || `The ${displayYear} ${edition?.title || "India Brand Icon Award"} celebrated the visionaries, institutions, and leaders who redefined excellence in business and entrepreneurship.`}
                         </p>
