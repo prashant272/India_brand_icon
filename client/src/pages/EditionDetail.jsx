@@ -18,7 +18,7 @@ function BannerSlider({ images, year }) {
 
     if (images.length === 0) {
         return (
-            <div className="relative w-full h-[250px] sm:h-[400px] md:h-[500px] mb-12 rounded-[2rem] overflow-hidden bg-indigo-950/40  border border-white/10 flex flex-col items-center justify-center text-center p-6 shadow-2xl">
+            <div className="relative w-full h-[250px] sm:h-[400px] md:h-[500px] mb-12 rounded-[2rem] overflow-hidden bg-slate-900/40  border border-white/10 flex flex-col items-center justify-center text-center p-6 shadow-2xl">
                 <div className="absolute inset-0 bg-gradient-to-br from-[#d4af37]/5 to-transparent pointer-events-none"></div>
                 <div className="text-4xl sm:text-6xl mb-4 sm:mb-6 animate-pulse">📸</div>
                 <h3 className="text-2xl sm:text-3xl font-black text-transparent bg-clip-text bg-gradient-to-r from-white to-slate-400 mb-3">Capturing Memories...</h3>
@@ -38,7 +38,7 @@ function BannerSlider({ images, year }) {
                 alt={`Banner ${curr + 1}`}
                 loading="lazy"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#020617] via-indigo-950/20 to-transparent opacity-80 pointer-events-none" />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#020617] via-slate-900/20 to-transparent opacity-80 pointer-events-none" />
             <div className="absolute inset-0 bg-gradient-to-r from-[#020617]/50 via-transparent to-[#020617]/50 pointer-events-none" />
 
             {/* Navigation Buttons */}
@@ -98,7 +98,7 @@ function EventGallery({ images }) {
                     {[...images, ...images].map((img, i) => (
                         <div
                             key={i}
-                            className="shrink-0 w-[260px] h-[180px] sm:w-[380px] sm:h-[260px] md:w-[450px] md:h-[300px] rounded-[1.5rem] sm:rounded-[2rem] overflow-hidden border border-white/5 shadow-2xl transition-all duration-500 hover:scale-[1.03] hover:border-[#d4af37]/40 bg-indigo-950 group/item relative"
+                            className="shrink-0 w-[260px] h-[180px] sm:w-[380px] sm:h-[260px] md:w-[450px] md:h-[300px] rounded-[1.5rem] sm:rounded-[2rem] overflow-hidden border border-white/5 shadow-2xl transition-all duration-500 hover:scale-[1.03] hover:border-[#d4af37]/40 bg-slate-900 group/item relative"
                         >
                             <img
                                 src={img}
@@ -189,7 +189,7 @@ export default function EditionDetail() {
             <div className="max-w-7xl mx-auto px-4 sm:px-8 pb-32 relative z-10">
 
                 {!edition && isCovidYear ? (
-                    <div className="relative w-full py-20 px-6 sm:px-12 mb-12 sm:mb-16 rounded-[2rem] sm:rounded-[3rem] overflow-hidden bg-indigo-950/40 border border-white/10 flex flex-col items-center justify-center text-center shadow-[0_20px_50px_rgba(0,0,0,0.5)] group">
+                    <div className="relative w-full py-20 px-6 sm:px-12 mb-12 sm:mb-16 rounded-[2rem] sm:rounded-[3rem] overflow-hidden bg-slate-900/40 border border-white/10 flex flex-col items-center justify-center text-center shadow-[0_20px_50px_rgba(0,0,0,0.5)] group">
                         <div className="absolute inset-0 bg-[radial-gradient(#d4af37_1px,transparent_1px)] [background-size:24px_24px] opacity-10" />
                         <div className="absolute top-0 right-0 w-64 h-64 bg-red-500/5 blur-[80px] rounded-full group-hover:bg-red-500/10 transition-colors duration-700" />
                         <div className="text-7xl mb-6 drop-shadow-2xl">😷</div>
@@ -226,7 +226,7 @@ export default function EditionDetail() {
                         <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-black mb-8 leading-[1.15] tracking-tight">
 
                             <br className="hidden sm:block" />
-                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-indigo-100 to-indigo-400 drop-shadow-[0_2px_15px_rgba(16,185,129,0.3)]"> {edition?.title || "Awards"} {displayYear}</span>
+                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#D4AF37] via-[#FFF3C7] to-[#AA771C] drop-shadow-[0_2px_15px_rgba(212,175,55,0.3)]"> {edition?.title || "Awards"} {displayYear}</span>
                         </h1>
                         <p className="text-base sm:text-xl text-slate-300 leading-relaxed max-w-3xl mx-auto whitespace-pre-line font-medium">
                             {edition?.hero || `The ${displayYear} ${edition?.title || "India Brand Icon Award"} celebrated the visionaries, institutions, and leaders who redefined excellence in business and entrepreneurship.`}
@@ -237,7 +237,7 @@ export default function EditionDetail() {
                         <div className="grid lg:grid-cols-12 gap-10 sm:gap-12 items-stretch">
                             {/* Legacy Card */}
                             <section className="lg:col-span-5 flex">
-                                <div className="w-full bg-indigo-950/50 p-8 sm:p-12 rounded-[2rem] sm:rounded-[3rem] border border-white/10 relative overflow-hidden group hover:border-[#d4af37]/30 transition-all duration-500 shadow-2xl flex flex-col justify-center">
+                                <div className="w-full bg-slate-900/50 p-8 sm:p-12 rounded-[2rem] sm:rounded-[3rem] border border-white/10 relative overflow-hidden group hover:border-[#d4af37]/30 transition-all duration-500 shadow-2xl flex flex-col justify-center">
                                     <div className="absolute top-0 right-0 w-64 h-64 bg-[#d4af37]/5 blur-[80px] rounded-full group-hover:bg-[#d4af37]/10 transition-colors duration-700" />
                                     <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-white mb-6 sm:mb-8 flex items-center gap-4 relative z-10">
                                         <span className="flex items-center justify-center w-12 h-12 rounded-full bg-[#d4af37]/10 border border-[#d4af37]/20 text-[#d4af37] text-xl shadow-[0_0_15px_rgba(212,175,55,0.2)]">🏅</span>
@@ -262,7 +262,7 @@ export default function EditionDetail() {
                                     { label: "100+", sub: "Institutions Won Award", icon: "🎓" },
                                     { label: edition.editionLabel?.split(" ")[0] || "Past", sub: "Successful Edition", icon: "🌟" }
                                 ].map((item, i) => (
-                                    <div key={i} className="bg-indigo-950/30 p-6 sm:p-8 rounded-[1.5rem] sm:rounded-[2rem] border border-white/5 flex flex-col justify-center items-center text-center group hover:border-[#d4af37]/30 hover:bg-indigo-950/70 transition-all duration-500 relative overflow-hidden">
+                                    <div key={i} className="bg-slate-900/30 p-6 sm:p-8 rounded-[1.5rem] sm:rounded-[2rem] border border-white/5 flex flex-col justify-center items-center text-center group hover:border-[#d4af37]/30 hover:bg-slate-900/70 transition-all duration-500 relative overflow-hidden">
                                         <div className="absolute inset-0 bg-gradient-to-tr from-[#d4af37]/0 via-[#d4af37]/5 to-[#d4af37]/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                                         <div className="text-2xl mb-3 opacity-80 group-hover:scale-110 group-hover:opacity-100 transition-transform">{item.icon}</div>
                                         <div className="text-3xl sm:text-4xl lg:text-5xl text-transparent bg-clip-text bg-gradient-to-b from-white to-slate-400 font-black mb-2 group-hover:from-white group-hover:to-white transition-all">{item.label}</div>
@@ -274,7 +274,7 @@ export default function EditionDetail() {
                     )}
 
                     {/* Evaluation Architecture */}
-                    <section className="bg-indigo-950/60 p-8 sm:p-14 md:p-16 rounded-[2rem] sm:rounded-[3rem] border border-white/10 shadow-2xl relative overflow-hidden">
+                    <section className="bg-slate-900/60 p-8 sm:p-14 md:p-16 rounded-[2rem] sm:rounded-[3rem] border border-white/10 shadow-2xl relative overflow-hidden">
                         <div className="absolute top-0 right-1/4 w-[600px] h-[600px] bg-[#d4af37]/5 blur-[120px] rounded-full pointer-events-none" />
 
                         <div className="text-center mb-12 sm:mb-20 relative z-10">
@@ -295,7 +295,7 @@ export default function EditionDetail() {
                                     {/* Connecting Line for desktop */}
                                     {i < 3 && <div className="hidden lg:block absolute top-[2.5rem] sm:top-[3rem] left-[60%] w-[80%] h-[2px] bg-gradient-to-r from-[#d4af37]/20 to-transparent z-0"></div>}
 
-                                    <div className="relative z-10 w-20 h-20 sm:w-24 sm:h-24 mx-auto bg-indigo-950 border-2 border-white/10 rounded-full flex items-center justify-center text-2xl sm:text-3xl font-black text-[#d4af37] mb-6 shadow-[0_10px_30px_rgba(0,0,0,0.5)] group-hover:border-[#d4af37]/50 group-hover:scale-110 transition-all duration-500">
+                                    <div className="relative z-10 w-20 h-20 sm:w-24 sm:h-24 mx-auto bg-slate-900 border-2 border-white/10 rounded-full flex items-center justify-center text-2xl sm:text-3xl font-black text-[#d4af37] mb-6 shadow-[0_10px_30px_rgba(0,0,0,0.5)] group-hover:border-[#d4af37]/50 group-hover:scale-110 transition-all duration-500">
                                         0{i + 1}
                                         <div className="absolute inset-0 rounded-full bg-[#d4af37]/10 opacity-0 group-hover:opacity-100 transition-opacity blur-md"></div>
                                     </div>
