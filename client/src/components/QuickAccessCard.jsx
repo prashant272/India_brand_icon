@@ -270,7 +270,7 @@ export default function QuickAccessCard({ onSuccess, onClose, isModal }) {
                     <div className="mt-6 flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/5 border border-white/10 text-white relative z-10 justify-center">
                         <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
                         <span className="text-xs uppercase tracking-[0.2em] font-extrabold text-white">
-                            International Healthcare Access
+                            India Brand Icon Access
                         </span>
                     </div>
                 </form>
