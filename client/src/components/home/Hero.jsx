@@ -6,18 +6,16 @@ import "swiper/css/effect-coverflow";
 
 import { Autoplay, EffectCoverflow, Navigation, Pagination } from "swiper/modules";
 import { FadeUp, NeonCard, PageHero, StaggerContainer, StaggerItem } from "../Motion.jsx";
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Swiper, SwiperSlide } from "swiper/react";
-import { useAuth } from "../../context/AuthContext.jsx";
-import { useNavigate } from 'react-router-dom';
+
 import { events } from '../../constants/events.js';
+import { useNavigate } from 'react-router-dom';
 
 function Hero() {
 
-  const videoRef = useRef(null);
   const navigate = useNavigate();
-  const { isAuthenticated, user } = useAuth();
-  const sectionRefs = useRef([]);
+
 
   // Removed local video playbackRate effect as we've switched to YouTube embed
   const [isVideoLoaded, setIsVideoLoaded] = useState(false);

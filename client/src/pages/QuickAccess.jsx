@@ -25,6 +25,9 @@ export default function QuickAccess() {
     // Check if the client phone number is already verified
     const isVerified = localStorage.getItem("quickAccessVerified") === "true";
 
+    // Track how many times the user has closed the modal
+    const closeCount = parseInt(localStorage.getItem("quickAccessCloseCount") || "0", 10);
+
     useEffect(() => {
         // Stop if the user is already verified
         if (isVerified) {
@@ -32,19 +35,25 @@ export default function QuickAccess() {
             return;
         }
 
+        // If they have exhausted their close attempts, show it immediately and permanently
+        if (closeCount >= 2) {
+            setIsVisible(true);
+            return;
+        }
+
         // Hide initially on route changes
         setIsVisible(false);
 
-        // Nudge trigger: display the popup after a 2-second delay
+        // Nudge trigger: display the popup after a 15-second delay
         const timer = setTimeout(() => {
             if (localStorage.getItem("quickAccessVerified") !== "true") {
                 setIsVisible(true);
             }
-        }, 2000); // 2 seconds delay
+        }, 15000);
 
         // Clean up the timeout timer when component unmounts or route changes
         return () => clearTimeout(timer);
-    }, [location.pathname, isVerified]);
+    }, [location.pathname, isVerified, closeCount]);
 
     // Do not render anything if verified or still waiting for timer
     if (isVerified || !isVisible) return null;
@@ -60,20 +69,27 @@ export default function QuickAccess() {
     const handleClose = () => {
         setIsVisible(false);
 
-        // Nudge recycle: automatically pop up again after 2 seconds
+        // Increment the close count
+        const newCount = closeCount + 1;
+        localStorage.setItem("quickAccessCloseCount", newCount.toString());
+
+        // Nudge recycle: automatically pop up again after 15 seconds
         setTimeout(() => {
             if (localStorage.getItem("quickAccessVerified") !== "true") {
                 setIsVisible(true);
             }
-        }, 2000); // 2 seconds delay
+        }, 15000);
     };
+
+    // Show the close button if they have closed it less than 2 times
+    const showCloseButton = closeCount < 2;
 
     return (
         /* Full Screen Backdrop with Backdrop Blur styling */
         <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-black/80 backdrop-blur-md p-4 overflow-y-auto">
             <div className="w-full max-w-md my-auto relative">
                 {/* Renders the stateful registration card inside the modal wrapper */}
-                <QuickAccessCard onSuccess={handleSuccess} onClose={handleClose} isModal={true} />
+                <QuickAccessCard onSuccess={handleSuccess} onClose={showCloseButton ? handleClose : null} isModal={true} />
             </div>
         </div>
     );
