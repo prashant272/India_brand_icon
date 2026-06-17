@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import { fetchUpcomingEditionByYear } from "../services/api.js";
-import VideoGallery from "../components/VideoGallery.jsx";
+
 import { PageHero } from "../components/Motion.jsx";
 import { Calendar, MapPin, Shield, Sparkles, Handshake, Megaphone } from "lucide-react";
+import GuestsAndSpeakers from "../components/home/GuestsAndSpeakers.jsx";
 
 // Banner slider with auto-scroll and modern UI
 function BannerSlider({ images, year }) {
@@ -71,46 +72,6 @@ function BannerSlider({ images, year }) {
                             }`}
                     />
                 ))}
-            </div>
-        </div>
-    );
-}
-
-// Event Gallery - Scrolling Image Marquee
-function EventGallery({ images }) {
-    if (images.length === 0) return null;
-
-    return (
-        <div className="mb-16 sm:mb-24 overflow-hidden relative">
-            <div className="flex items-center justify-center gap-3 mb-8 sm:mb-12">
-                <div className="h-px w-12 bg-gradient-to-r from-transparent to-[#d4af37]"></div>
-                <h3 className="text-2xl sm:text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-white via-slate-200 to-slate-400 tracking-wide uppercase">
-                    Promotional Media
-                </h3>
-                <div className="h-px w-12 bg-gradient-to-l from-transparent to-[#d4af37]"></div>
-            </div>
-
-            <div className="relative group">
-                {/* Soft edge masks */}
-                <div className="absolute top-0 left-0 w-16 sm:w-40 h-full bg-gradient-to-r from-[#020617] to-transparent z-10 pointer-events-none"></div>
-                <div className="absolute top-0 right-0 w-16 sm:w-40 h-full bg-gradient-to-l from-[#020617] to-transparent z-10 pointer-events-none"></div>
-
-                <div className="flex gap-4 sm:gap-6 animate-marquee hover:[animation-play-state:paused]">
-                    {[...images, ...images].map((img, i) => (
-                        <div
-                            key={i}
-                            className="shrink-0 w-[260px] h-[180px] sm:w-[380px] sm:h-[260px] md:w-[450px] md:h-[300px] rounded-[1.5rem] sm:rounded-[2rem] overflow-hidden border border-white/5 shadow-2xl transition-all duration-500 hover:scale-[1.03] hover:border-[#d4af37]/40 bg-indigo-950 group/item relative"
-                        >
-                            <img
-                                src={img}
-                                alt={`Highlight ${i}`}
-                                className="w-full h-full object-cover relative z-10 transition-transform duration-700 group-hover/item:scale-110"
-                                loading="lazy"
-                            />
-                            <div className="absolute inset-0 bg-black/20 group-hover/item:bg-transparent transition-colors duration-500 z-20"></div>
-                        </div>
-                    ))}
-                </div>
             </div>
         </div>
     );
@@ -192,8 +153,8 @@ export default function UpcomingEditionDetail() {
             <div className="grid lg:grid-cols-12 gap-8 lg:gap-12 items-start mt-12 mb-16">
                 {/* LEFT CONTENT: Event Details */}
                 <div className="lg:col-span-8 space-y-8">
-                    <div className="bg-indigo-950 border border-white/10 rounded-[2rem] p-8 md:p-12 shadow-2xl">
-                        <h2 className="text-3xl md:text-5xl font-black mb-6 leading-tight bg-gradient-to-r from-[#60A5FA] via-[#818CF8] to-[#FB7185] bg-clip-text text-transparent">
+                    <div className="bg-slate-900 border border-white/10 rounded-[2rem] p-8 md:p-12 shadow-2xl">
+                        <h2 className="text-3xl md:text-5xl font-black mb-6 leading-tight bg-gradient-to-r from-[#D4AF37] via-[#FFF3C7] to-[#AA771C] bg-clip-text text-transparent">
                             {edition.title}, {displayYear}  - {locationString}
                         </h2>
                         <div className="w-24 h-1 bg-gradient-to-r from-[#d4af37] to-transparent mb-8 rounded-full"></div>
@@ -218,19 +179,19 @@ export default function UpcomingEditionDetail() {
 
                     {/* Features Box Grid (Screenshot 1) */}
                     <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
-                        <div className="bg-indigo-950 border border-white/5 rounded-[2rem] p-8 flex flex-col items-center justify-center text-center shadow-lg hover:border-[#d4af37]/40 hover:bg-indigo-900 transition-all group">
+                        <div className="bg-slate-900 border border-white/5 rounded-[2rem] p-8 flex flex-col items-center justify-center text-center shadow-lg hover:border-[#d4af37]/40 hover:bg-[#131B2F] transition-all group">
                             <Sparkles className="text-[#d4af37] w-12 h-12 mb-5 group-hover:scale-110 transition-transform" strokeWidth={1.5} />
-                            <h4 className="bg-gradient-to-r from-[#60A5FA] via-[#818CF8] to-[#FB7185] bg-clip-text text-transparent font-black tracking-widest text-sm mb-2 uppercase">RECOGNITION</h4>
+                            <h4 className="bg-gradient-to-r from-[#D4AF37] via-[#FFF3C7] to-[#AA771C] bg-clip-text text-transparent font-black tracking-widest text-sm mb-2 uppercase">RECOGNITION</h4>
                             <p className="text-slate-400 text-xs font-bold tracking-[0.2em] uppercase">ELITE GLOBAL FAME</p>
                         </div>
-                        <div className="bg-indigo-950 border border-white/5 rounded-[2rem] p-8 flex flex-col items-center justify-center text-center shadow-lg hover:border-[#d4af37]/40 hover:bg-indigo-900 transition-all group">
+                        <div className="bg-slate-900 border border-white/5 rounded-[2rem] p-8 flex flex-col items-center justify-center text-center shadow-lg hover:border-[#d4af37]/40 hover:bg-[#131B2F] transition-all group">
                             <Handshake className="text-[#d4af37] w-12 h-12 mb-5 group-hover:scale-110 transition-transform" strokeWidth={1.5} />
-                            <h4 className="bg-gradient-to-r from-[#60A5FA] via-[#818CF8] to-[#FB7185] bg-clip-text text-transparent font-black tracking-widest text-sm mb-2 uppercase">NETWORKING</h4>
+                            <h4 className="bg-gradient-to-r from-[#D4AF37] via-[#FFF3C7] to-[#AA771C] bg-clip-text text-transparent font-black tracking-widest text-sm mb-2 uppercase">NETWORKING</h4>
                             <p className="text-slate-400 text-xs font-bold tracking-[0.2em] uppercase">VVIP CONNECTIONS</p>
                         </div>
-                        <div className="bg-indigo-950 border border-white/5 rounded-[2rem] p-8 flex flex-col items-center justify-center text-center shadow-lg hover:border-[#d4af37]/40 hover:bg-indigo-900 transition-all group">
+                        <div className="bg-slate-900 border border-white/5 rounded-[2rem] p-8 flex flex-col items-center justify-center text-center shadow-lg hover:border-[#d4af37]/40 hover:bg-[#131B2F] transition-all group">
                             <Megaphone className="text-[#d4af37] w-12 h-12 mb-5 group-hover:scale-110 transition-transform" strokeWidth={1.5} />
-                            <h4 className="bg-gradient-to-r from-[#60A5FA] via-[#818CF8] to-[#FB7185] bg-clip-text text-transparent font-black tracking-widest text-sm mb-2 uppercase">NEWS</h4>
+                            <h4 className="bg-gradient-to-r from-[#D4AF37] via-[#FFF3C7] to-[#AA771C] bg-clip-text text-transparent font-black tracking-widest text-sm mb-2 uppercase">NEWS</h4>
                             <p className="text-slate-400 text-xs font-bold tracking-[0.2em] uppercase">TOP MEDIA COVERAGE</p>
                         </div>
                     </div>
@@ -239,12 +200,12 @@ export default function UpcomingEditionDetail() {
                 {/* RIGHT CONTENT: Sidebar Cards */}
                 <div className="lg:col-span-4 space-y-8 sticky top-28">
                     {/* Registration Box */}
-                    <div className="bg-indigo-950 border border-white/10 rounded-[2.5rem] p-8 shadow-2xl relative overflow-hidden">
+                    <div className="bg-slate-900 border border-white/10 rounded-[2.5rem] p-8 shadow-2xl relative overflow-hidden">
                         <div className="absolute top-0 right-0 w-32 h-32 bg-[#d4af37]/10 blur-[50px] rounded-full pointer-events-none" />
 
                         <div className="flex items-center gap-3 mb-10 relative z-10">
                             <div className="w-2.5 h-2.5 bg-green-500 rounded-full animate-pulse shadow-[0_0_12px_#22c55e]"></div>
-                            <h3 className="bg-gradient-to-r from-[#60A5FA] via-[#818CF8] to-[#FB7185] bg-clip-text text-transparent font-black tracking-[0.2em] text-xs uppercase">Nominations Open</h3>
+                            <h3 className="bg-gradient-to-r from-[#D4AF37] via-[#FFF3C7] to-[#AA771C] bg-clip-text text-transparent font-black tracking-[0.2em] text-xs uppercase">Nominations Open</h3>
                         </div>
 
                         <div className="space-y-8 mb-10 relative z-10">
@@ -281,22 +242,24 @@ export default function UpcomingEditionDetail() {
                     </div>
 
                     {/* Trusted Recognition Hub Box */}
-                    <div className="bg-indigo-950 border border-white/10 rounded-[2.5rem] p-8 shadow-2xl flex items-center gap-6">
+                    <div className="bg-slate-900 border border-white/10 rounded-[2.5rem] p-8 shadow-2xl flex items-center gap-6">
                         <div className="w-14 h-16 shrink-0 bg-gradient-to-b from-slate-200 to-slate-400 rounded-t-sm rounded-b-[1.5rem] flex items-center justify-center text-red-600 border-4 border-red-500 shadow-[inset_0_-4px_10px_rgba(0,0,0,0.5)]">
                             <Shield size={28} fill="currentColor" className="text-red-600" />
                         </div>
-                        <h4 className="bg-gradient-to-r from-[#60A5FA] via-[#818CF8] to-[#FB7185] bg-clip-text text-transparent font-black tracking-[0.15em] text-xs sm:text-sm uppercase leading-relaxed flex-1">
+                        <h4 className="bg-gradient-to-r from-[#D4AF37] via-[#FFF3C7] to-[#AA771C] bg-clip-text text-transparent font-black tracking-[0.15em] text-xs sm:text-sm uppercase leading-relaxed flex-1">
                             The World's Most Trusted Recognition Hub
                         </h4>
                     </div>
                 </div>
             </div>
 
-            <EventGallery images={images} />
-            <VideoGallery videoLinks={edition.videoLinks} />
+
+            {/* Guest & Speakers */}
+
+            <GuestsAndSpeakers />
 
             {/* Evaluation Architecture */}
-            <section className="bg-indigo-950 p-8 sm:p-14 md:p-16 rounded-[2rem] sm:rounded-[3rem] border border-white/10 shadow-2xl relative overflow-hidden mt-16">
+            <section className="bg-slate-900 p-8 sm:p-14 md:p-16 rounded-[2rem] sm:rounded-[3rem] border border-white/10 shadow-2xl relative overflow-hidden mt-16">
                 <div className="absolute top-0 right-1/4 w-[600px] h-[600px] bg-[#d4af37]/5 blur-[120px] rounded-full pointer-events-none" />
 
                 <div className="text-center mb-12 sm:mb-20 relative z-10">
