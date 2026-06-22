@@ -321,6 +321,7 @@ const menuLinks = (color, onClick, headerRef, isUser, showDashboard = true, edit
       <NavItem to="/contact" icon={<FaEnvelope />} label={<><span className="">Contact </span>Us</>} color={color} onClick={createNavHandler(onClick)} />
       <UpcomingNavDropdown icon={<FaHistory />} label={<><span className="">Upcoming </span>Awards</>} color={color} options={upcomingEditions} onClick={createNavHandler(onClick)} />
       <NavDropdown icon={<FaHistory />} label={<><span className="">Previous </span>Editions</>} color={color} options={editions} onClick={createNavHandler(onClick)} />
+      <NavItem to="/blogs" icon={<FaBook />} label="Blogs" color={color} onClick={createNavHandler(onClick)} />
       <NavItem to="/faq" icon={<FaQuestionCircle />} label="FAQ" color={color} onClick={createNavHandler(onClick)} />
       <NavItem to="/nominate" icon={<FaRegEdit />} label={<>Nominate<span className="hidden xl:inline"> Now</span></>} color={color} onClick={createNavHandler(onClick)} isSpecial={true} />
       {isUser && showDashboard && (
