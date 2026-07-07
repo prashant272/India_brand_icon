@@ -44,12 +44,12 @@ export default function QuickAccess() {
         // Hide initially on route changes
         setIsVisible(false);
 
-        // Nudge trigger: display the popup after a 15-second delay
+        // Nudge trigger: display the popup after a 10-second delay
         const timer = setTimeout(() => {
             if (localStorage.getItem("quickAccessVerified") !== "true") {
                 setIsVisible(true);
             }
-        }, 15000);
+        }, 10000);
 
         // Clean up the timeout timer when component unmounts or route changes
         return () => clearTimeout(timer);
@@ -73,12 +73,12 @@ export default function QuickAccess() {
         const newCount = closeCount + 1;
         localStorage.setItem("quickAccessCloseCount", newCount.toString());
 
-        // Nudge recycle: automatically pop up again after 15 seconds
+        // Nudge recycle: automatically pop up again after 60 seconds
         setTimeout(() => {
             if (localStorage.getItem("quickAccessVerified") !== "true") {
                 setIsVisible(true);
             }
-        }, 15000);
+        }, 60000);
     };
 
     // Show the close button if they have closed it less than 2 times
