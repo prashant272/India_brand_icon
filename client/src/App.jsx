@@ -32,6 +32,8 @@ const ResetPassword = lazy(() => import("./pages/ResetPassword.jsx"));
 const DeveloperAuth = lazy(() => import("./pages/DeveloperAuth.jsx"));
 const PreviousEditions = lazy(() => import("./pages/PreviousEditions.jsx"));
 const UpComingEditionDetail = lazy(() => import("./pages/UpComingEditionDetail.jsx"));
+const Blogs = lazy(() => import("./pages/Blog.jsx"))
+const BlogDetail = lazy(() => import("./pages/BlogDetail.jsx"));
 
 import ProtectedRoute from "./components/ProtectedRoute.jsx";
 import ScrollToTop from "./components/ScrollToTop.jsx";
@@ -83,6 +85,8 @@ export default function App() {
                 <Route path="/nominate/:id" element={<NominationForm />} />
                 <Route path="/nomination/:id" element={<NominationDetails />} />
                 <Route path="/success" element={<SuccessPage />} />
+                <Route path="/blogs" element={<Blogs />} />
+                <Route path="/blogs/:slug" element={<BlogDetail />} />
                 <Route
                   path="/dashboard"
                   element={

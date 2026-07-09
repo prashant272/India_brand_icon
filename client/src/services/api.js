@@ -228,4 +228,36 @@ export function deleteAdminInquiry(id, token) {
   return request(`/api/admin/inquiries/${id}`, { method: "DELETE", token });
 }
 
+/* ---------------- Blogs ---------------- */
 
+export function fetchPublishedBlogs() {
+  return request("/api/blogs", { method: "GET" });
+}
+
+export function fetchBlogBySlug(slug) {
+  return request(`/api/blogs/${slug}`, { method: "GET" });
+}
+
+export function fetchAdminBlogs(token) {
+  return request("/api/blogs/admin/all", { method: "GET", token });
+}
+
+export function createBlog(payload, token) {
+  return request("/api/blogs", {
+    method: "POST",
+    body: payload,
+    token,
+  });
+}
+
+export function updateBlog(id, payload, token) {
+  return request(`/api/blogs/${id}`, {
+    method: "PUT",
+    body: payload,
+    token,
+  });
+}
+
+export function deleteBlog(id, token) {
+  return request(`/api/blogs/${id}`, { method: "DELETE", token });
+}
