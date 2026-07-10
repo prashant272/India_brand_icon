@@ -7,15 +7,15 @@
  * Flow & Behavior:
  * 1. Persistent Verification: Checks localStorage to see if the user is already verified.
  *    If verified (`quickAccessVerified === "true"`), the widget returns `null` immediately.
- * 2. Delay Trigger: When visiting the site, it waits for exactly 2 seconds before showing up.
+ * 2. Delay Trigger: When visiting the site, it waits for exactly 10 seconds before showing up.
  * 3. Close & Nudge Recycle: If a user closes the modal (by clicking "X"), it is hidden
- *    temporarily, but automatically pops up again after a 2-second delay until they successfully verify.
+ *    temporarily, but automatically pops up again after a 60-second delay until they successfully verify.
  */
 
+import { useEffect, useState } from "react";
 
-import { useState, useEffect } from "react";
+import QuickAccessCard from "../components/QuickAccessCard"
 import { useLocation } from "react-router-dom";
-import QuickAccessCard from "../components/QuickAccessCard";
 
 export default function QuickAccess() {
     // Controls if the popup is visible in the viewport
@@ -35,8 +35,12 @@ export default function QuickAccess() {
             return;
         }
 
-        // If they have exhausted their close attempts, show it immediately and permanently
-        if (closeCount >= 2) {
+        const lastClosed = parseInt(localStorage.getItem("quickAccessLastClosed") || "0", 10);
+        const timeSinceClosed = Date.now() - lastClosed;
+
+        // If they have exhausted their close attempts and the 60s cooldown is over,
+        // show it immediately and permanently on all page navigations.
+        if (closeCount >= 1 && timeSinceClosed >= 60000) {
             setIsVisible(true);
             return;
         }
@@ -44,12 +48,17 @@ export default function QuickAccess() {
         // Hide initially on route changes
         setIsVisible(false);
 
-        // Nudge trigger: display the popup after a 10-second delay
+        let delay = 10000;
+        if (lastClosed > 0 && timeSinceClosed < 60000) {
+            delay = 60000 - timeSinceClosed;
+        }
+
+        // Nudge trigger: display the popup after the delay
         const timer = setTimeout(() => {
             if (localStorage.getItem("quickAccessVerified") !== "true") {
                 setIsVisible(true);
             }
-        }, 10000);
+        }, delay);
 
         // Clean up the timeout timer when component unmounts or route changes
         return () => clearTimeout(timer);
@@ -72,17 +81,14 @@ export default function QuickAccess() {
         // Increment the close count
         const newCount = closeCount + 1;
         localStorage.setItem("quickAccessCloseCount", newCount.toString());
+        localStorage.setItem("quickAccessLastClosed", Date.now().toString());
 
-        // Nudge recycle: automatically pop up again after 60 seconds
-        setTimeout(() => {
-            if (localStorage.getItem("quickAccessVerified") !== "true") {
-                setIsVisible(true);
-            }
-        }, 60000);
+        // We don't need a setTimeout here. Updating closeCount triggers
+        // the useEffect to re-run, which perfectly calculates the remaining time!
     };
 
-    // Show the close button if they have closed it less than 2 times
-    const showCloseButton = closeCount < 2;
+    // Show the close button only if they haven't closed it yet (less than 1 time)
+    const showCloseButton = closeCount < 1;
 
     return (
         /* Full Screen Backdrop with Backdrop Blur styling */
