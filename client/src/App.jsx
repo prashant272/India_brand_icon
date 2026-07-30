@@ -1,9 +1,15 @@
-import { Routes, Route, useLocation } from "react-router-dom";
-import { lazy, Suspense } from "react";
 import { LazyMotion, domMax } from "framer-motion";
-import Navbar from "./components/Navbar";
-import Footer from "./components/Footer";
+import { Route, Routes, useLocation } from "react-router-dom";
+import { Suspense, lazy } from "react";
+
 import { AuroraBackground } from "./components/Motion.jsx";
+import CallButton from "./components/CallButton.jsx";
+import Footer from "./components/Footer";
+import Navbar from "./components/Navbar";
+import ProtectedRoute from "./components/ProtectedRoute.jsx";
+import QuickAccess from "./pages/QuickAccess.jsx";
+import ScrollToTop from "./components/ScrollToTop.jsx";
+import WhatsAppButton from "./components/WhatsAppButton.jsx";
 
 // Pages with Code Splitting
 const Home = lazy(() => import("./pages/Home"));
@@ -35,11 +41,6 @@ const UpComingEditionDetail = lazy(() => import("./pages/UpComingEditionDetail.j
 const Blogs = lazy(() => import("./pages/Blog.jsx"))
 const BlogDetail = lazy(() => import("./pages/BlogDetail.jsx"));
 
-import ProtectedRoute from "./components/ProtectedRoute.jsx";
-import ScrollToTop from "./components/ScrollToTop.jsx";
-import WhatsAppButton from "./components/WhatsAppButton.jsx";
-import CallButton from "./components/CallButton.jsx";
-import QuickAccess from "./pages/QuickAccess.jsx";
 
 
 export default function App() {
@@ -49,6 +50,7 @@ export default function App() {
     <div className="min-h-screen flex flex-col">
       <ScrollToTop />
       {!location.pathname.startsWith("/admin") && <QuickAccess />}
+
       <Navbar />
 
       {/* MAIN CONTENT */}

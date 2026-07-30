@@ -9,7 +9,7 @@
  *    If verified (`quickAccessVerified === "true"`), the widget returns `null` immediately.
  * 2. Delay Trigger: When visiting the site, it waits for exactly 10 seconds before showing up.
  * 3. Close & Nudge Recycle: If a user closes the modal (by clicking "X"), it is hidden
- *    temporarily, but automatically pops up again after a 60-second delay until they successfully verify.
+ *    temporarily, but automatically pops up again after a 30-minute delay until they successfully verify.
  */
 
 import { useEffect, useState } from "react";
@@ -38,9 +38,9 @@ export default function QuickAccess() {
         const lastClosed = parseInt(localStorage.getItem("quickAccessLastClosed") || "0", 10);
         const timeSinceClosed = Date.now() - lastClosed;
 
-        // If they have exhausted their close attempts and the 60s cooldown is over,
+        // If they have exhausted their close attempts and the 30-minute cooldown is over,
         // show it immediately and permanently on all page navigations.
-        if (closeCount >= 1 && timeSinceClosed >= 60000) {
+        if (closeCount >= 3 && timeSinceClosed >= 1800000) {
             setIsVisible(true);
             return;
         }
@@ -49,8 +49,8 @@ export default function QuickAccess() {
         setIsVisible(false);
 
         let delay = 10000;
-        if (lastClosed > 0 && timeSinceClosed < 60000) {
-            delay = 60000 - timeSinceClosed;
+        if (lastClosed > 0 && timeSinceClosed < 1800000) {
+            delay = 1800000 - timeSinceClosed;
         }
 
         // Nudge trigger: display the popup after the delay
@@ -87,8 +87,8 @@ export default function QuickAccess() {
         // the useEffect to re-run, which perfectly calculates the remaining time!
     };
 
-    // Show the close button only if they haven't closed it yet (less than 1 time)
-    const showCloseButton = closeCount < 1;
+    // Show the close button if they have closed it less than 3 times
+    const showCloseButton = closeCount < 3;
 
     return (
         /* Full Screen Backdrop with Backdrop Blur styling */
