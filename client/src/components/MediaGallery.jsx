@@ -28,63 +28,71 @@ const ReelCard = memo(({ reel, isPlaying, onPlay }) => {
 
   return (
     <div
-      className="group relative rounded-[2.5rem] overflow-hidden border border-white/10 shadow-2xl aspect-[9/16] bg-slate-900/40  cursor-pointer"
+      className="group relative rounded-[2.5rem] overflow-hidden border border-white/10 shadow-2xl aspect-[9/16] bg-slate-900/40 cursor-pointer"
       onClick={() => !isPlaying && onPlay()}
     >
-      {isPlaying && videoId ? (
-        <div className="w-full h-full bg-black relative">
-          {!iframeLoaded && (
-            <div className="absolute inset-0 flex items-center justify-center bg-slate-900 z-10">
-              <div className="w-10 h-10 border-4 border-pink-500/20 border-t-pink-500 rounded-full animate-spin" />
-            </div>
-          )}
+      <div className="w-full h-full bg-black relative">
+        {/* Iframe Layer (Loads in background) */}
+        {isPlaying && videoId && (
           <iframe
-            src={`https://www.youtube.com/embed/${videoId}?autoplay=1&modestbranding=1&rel=0&enablejsapi=1`}
+            src={`https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&loop=1&playlist=${videoId}&modestbranding=1&rel=0&enablejsapi=1`}
             title={reel.title || "Video Reel"}
-            className="w-full h-full"
+            className="absolute inset-0 w-full h-full z-0"
             frameBorder="0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowFullScreen
             onLoad={() => setIframeLoaded(true)}
           ></iframe>
-        </div>
-      ) : (
-        <div className="relative w-full h-full">
-          {!imgLoaded && (
-            <div className="absolute inset-0 bg-slate-800 animate-pulse">
-              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent skew-x-12 translate-x-[-100%] animate-[shimmer_2s_infinite]"></div>
-            </div>
-          )}
+        )}
 
-          {videoId && (
-            <img
-              src={`https://img.youtube.com/vi/${videoId}/hqdefault.jpg`}
-              alt={reel.title || "Video Reel"}
-              onLoad={() => setImgLoaded(true)}
-              className={`w-full h-full object-cover transition-all duration-700 group-hover:scale-110 ${imgLoaded ? 'opacity-100' : 'opacity-0'} brightness-[1.05] contrast-[1.05]`}
-              loading="lazy"
-            />
-          )}
+        {/* Thumbnail & Loading Overlay Layer (Hides when iframe is ready) */}
+        {(!isPlaying || !iframeLoaded) && (
+          <div className="absolute inset-0 z-20 transition-opacity duration-1000 ease-out">
+            {!imgLoaded && (
+              <div className="absolute inset-0 bg-slate-800 animate-pulse">
+                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent skew-x-12 translate-x-[-100%] animate-[shimmer_2s_infinite]"></div>
+              </div>
+            )}
 
-          <div className="absolute inset-0 flex flex-col items-center justify-center z-10 bg-black/5 group-hover:bg-black/0 transition-colors">
-            <div className="w-16 h-16 bg-pink-600/90 rounded-full flex items-center justify-center text-white shadow-[0_0_40px_rgba(236,72,153,0.6)] transform group-hover:scale-125 transition-all duration-500 border-2 border-white/20">
-              <svg className="w-8 h-8 ml-1" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M8 5v14l11-7z" />
-              </svg>
-            </div>
+            {videoId && (
+              <img
+                src={`https://img.youtube.com/vi/${videoId}/hqdefault.jpg`}
+                alt={reel.title || "Video Reel"}
+                onLoad={() => setImgLoaded(true)}
+                className={`w-full h-full object-cover transition-all duration-700 ${imgLoaded ? 'opacity-100' : 'opacity-0'} brightness-[1.05] contrast-[1.05]`}
+                loading="lazy"
+              />
+            )}
+
+            {/* Show Play Button ONLY if not playing automatically */}
+            {!isPlaying && (
+              <div className="absolute inset-0 flex flex-col items-center justify-center z-30 bg-black/5 group-hover:bg-black/0 transition-colors">
+                <div className="w-16 h-16 bg-pink-600/90 rounded-full flex items-center justify-center text-white shadow-[0_0_40px_rgba(236,72,153,0.6)] transform group-hover:scale-125 transition-all duration-500 border-2 border-white/20">
+                  <svg className="w-8 h-8 ml-1" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M8 5v14l11-7z" />
+                  </svg>
+                </div>
+              </div>
+            )}
+
+            <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent opacity-100 z-10 pointer-events-none"></div>
+
+            {/* Show smooth spinner over thumbnail if playing but waiting on YouTube */}
+            {isPlaying && !iframeLoaded && (
+              <div className="absolute inset-0 flex items-center justify-center bg-slate-900/20 z-30 backdrop-blur-[2px] transition-opacity duration-500">
+                <div className="w-10 h-10 border-4 border-pink-500/30 border-t-pink-500 rounded-full animate-spin" />
+              </div>
+            )}
           </div>
-
-          <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent opacity-100 z-20"></div>
-
-        </div>
-      )}
+        )}
+      </div>
     </div>
   );
 });
 
 export default function MediaGallery() {
   const navigate = useNavigate();
-  const [activeTab, setActiveTab] = useState('photos');
+  const [activeTab, setActiveTab] = useState('reels');
   const [playingVideoId, setPlayingVideoId] = useState(null);
 
   useEffect(() => {
@@ -266,11 +274,11 @@ export default function MediaGallery() {
               {displayReels.map((reel, idx) => (
                 <SwiperSlide key={`${reel.url}-${idx}`} className="pb-4">
                   <div className="max-w-[320px] mx-auto">
-                    <ReelCard
-                      reel={reel}
-                      isPlaying={playingVideoId === `reel-${idx}`}
-                      onPlay={() => handleReelPlay(idx)}
-                    />
+                      <ReelCard
+                        reel={reel}
+                        isPlaying={true}
+                        onPlay={() => handleReelPlay(idx)}
+                      />
                   </div>
                 </SwiperSlide>
               ))}
