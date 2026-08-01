@@ -149,6 +149,8 @@ app.get(
   }
 );
 
+import galleryRoutes from "./routes/galleryRoutes.js";
+
 // Backward compatibility
 app.get("/api/auth/google/callback", (req, res) => {
   res.redirect(307, `/auth/google/callback?${new URLSearchParams(req.query).toString()}`);
@@ -162,6 +164,7 @@ app.use("/api/upcoming-editions", upcomingEditionRoutes);
 app.use("/api/inquiries", inquiryRoutes);
 app.use("/api/developer", developerRoutes);
 app.use("/api/blogs", blogRoutes);
+app.use("/api/gallery", galleryRoutes);
 
 // Global Error Handler
 app.use(errorHandler);
