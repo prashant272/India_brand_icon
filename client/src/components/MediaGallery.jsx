@@ -2,6 +2,7 @@ import { useState, useRef, useEffect, useMemo, memo, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Navigation, Pagination, EffectCoverflow } from 'swiper/modules';
+import { fetchGalleryMedia } from '../services/api';
 import { PageHero, FadeUp } from "./Motion";
 
 import 'swiper/css';
@@ -170,55 +171,26 @@ export default function MediaGallery() {
     return () => links.forEach(link => document.head.removeChild(link));
   }, []);
 
-  const reels = useMemo(() => [
-    { url: "https://www.youtube.com/shorts/ktV63TXavqI" },
-    { url: "https://www.youtube.com/shorts/vbrjxvVX0aA" },
-    { url: "https://www.youtube.com/shorts/YmdVEK_WKvk" },
-    { url: "https://www.youtube.com/shorts/5Y4Jqlj9qvU" },
-    { url: "https://www.youtube.com/shorts/HZZMAR__Jfk" },
-    { url: "https://www.youtube.com/shorts/rZAd9O7s3h4" },
-    { url: "https://www.youtube.com/shorts/VsPtnlmR3z0" },
-    { url: "https://www.youtube.com/shorts/wCD_Wpw45C4" },
-    { url: "https://www.youtube.com/shorts/rZAd9O7s3h4" },
-    { url: "https://www.youtube.com/shorts/qnSBCey_s74" },
+  const [reels, setReels] = useState([]);
+  const [photos, setPhotos] = useState([]);
+  const [videos, setVideos] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
-  ], []);
-
-  const photos = useMemo(() => [
-    '/2023/1.jpg', '/2023/2.jpg', '/2023/3.jpg', '/2023/4.jpg', '/2023/5.jpg',
-    '/2023/6.jpg', '/2023/7.jpg', '/2023/8.jpg', '/2023/9.jpg', '/2023/10.jpg', '/2023/11.jpg',
-  ], []);
-
-  const videos = useMemo(() => [
-
-    { url: "https://www.youtube.com/watch?v=yaFT7MPXbrM" },
-    { url: "" },
-
-
-    { url: "https://www.youtube.com/watch?v=MBoNTrPLeZI&t=5s" },
-    { url: "https://www.youtube.com/watch?v=LuCukRXeE_s&t=1s" },
-    { url: "https://www.youtube.com/watch?v=aY_mh32teqk&t=1s" },
-    { url: "https://www.youtube.com/watch?v=dEYs847mt_w" },
-    { url: "https://www.youtube.com/watch?v=f9qlJN2KXZ0&t=1158s" },
-    { url: "https://www.youtube.com/watch?v=TUYUmSe5jI8" },
-    { url: "https://www.youtube.com/watch?v=QC-9EHL0k6M" },
-    { url: "" },
-
-    { url: "https://www.youtube.com/shorts/bmOVd-epEuc" },
-    { url: "https://www.youtube.com/shorts/FobO7TDWHuE" },
-    { url: "https://www.youtube.com/shorts/A4TkdJNLXlw" },
-    { url: "https://www.youtube.com/shorts/w8C6XVpK2ng" },
-    { url: "https://www.youtube.com/shorts/Y_RsDMCDiCE" },
-    { url: "https://www.youtube.com/shorts/mLN3FHUu1wQ" },
-    { url: "https://www.youtube.com/shorts/1eNiG9tZLm4" },
-    { url: "https://www.youtube.com/shorts/lpM40ShaQB0" },
-    { url: "https://www.youtube.com/watch?v=FO9KwVu_GyA&t=2s" },
-    { url: "https://www.youtube.com/watch?v=wh7zwl0SUF4" },
-
-
-
-
-  ], []);
+  useEffect(() => {
+    const loadMedia = async () => {
+      try {
+        const data = await fetchGalleryMedia();
+        setReels(data.reels?.map(url => ({ url })) || []);
+        setPhotos(data.photos || []);
+        setVideos(data.videos?.map(url => ({ url })) || []);
+      } catch (err) {
+        console.error("Failed to fetch gallery media", err);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    loadMedia();
+  }, []);
 
   const displayPhotos = useMemo(() =>
     photos.length > 0 && photos.length < 10 ? [...photos, ...photos] : photos

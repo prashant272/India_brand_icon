@@ -13,6 +13,7 @@ import { ShieldCheck, Edit2, Trash2, FileText, Search, Eye } from "lucide-react"
 import AdminPreviousEditions from "../components/AdminPreviousEditions.jsx";
 import AdminUpcomingEditions from "../components/AdminUpcomingEdition.jsx";
 import AdminBlogs from "../components/AdminBlogs.jsx";
+import AdminMediaGallery from "../components/AdminMediaGallery.jsx";
 import { PageHero } from "../components/Motion.jsx";
 
 /* ------------------ Constants ------------------ */
@@ -895,6 +896,7 @@ export default function AdminDashboard() {
               { id: "previous-editions", label: "Editions", icon: "🕰️" },
               { id: "upcoming-editions", label: "Upcoming", icon: "🚀" },
               { id: "blogs", label: "Blogs", icon: "📝" },
+              { id: "media", label: "Media", icon: "🖼️" },
               { id: "admins", label: "Settings", icon: "🛡️" },
             ].map(item => (
               <button
@@ -952,7 +954,7 @@ export default function AdminDashboard() {
             </header>
 
             {/* Dynamic Global Filters & Search Panel (Hidden on Analytics/Settings tabs) */}
-            {activeTab !== "analytics" && activeTab !== "admins" && activeTab !== "previous-editions" && activeTab !== "upcoming-editions" && activeTab !== "blogs" && (
+            {activeTab !== "analytics" && activeTab !== "admins" && activeTab !== "previous-editions" && activeTab !== "upcoming-editions" && activeTab !== "blogs" && activeTab !== "media" && (
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-3 mb-4 bg-slate-900 py-3.5 px-5 rounded-2xl border border-white/10 shadow-[0_0_40px_rgba(0,0,0,0.3)]">
                 {activeTab !== "inquiries" ? (
                   <>
@@ -1066,6 +1068,7 @@ export default function AdminDashboard() {
               {activeTab === "previous-editions" && <AdminPreviousEditions />}
               {activeTab === "upcoming-editions" && <AdminUpcomingEditions />}
               {activeTab === "blogs" && <AdminBlogs />}
+              {activeTab === "media" && <AdminMediaGallery token={token} />}
             </div>
           </div>
         </main>

@@ -261,3 +261,46 @@ export function updateBlog(id, payload, token) {
 export function deleteBlog(id, token) {
   return request(`/api/blogs/${id}`, { method: "DELETE", token });
 }
+
+// --- Gallery Media ---
+
+export const fetchGalleryMedia = async () => {
+  return request("/api/gallery");
+};
+
+export const updateGalleryUrls = async (token, data) => {
+  return request("/api/gallery/urls", {
+    method: "PUT",
+    token,
+    body: data,
+  });
+};
+
+export const uploadGalleryPhotos = async (token, files) => {
+  const formData = new FormData();
+  for (let i = 0; i < files.length; i++) {
+    formData.append("photos", files[i]);
+  }
+  
+  const headers = { Authorization: `Bearer ${token}` };
+  
+  const response = await fetch(`${getBaseUrl()}/api/gallery/photos`, {
+    method: "POST",
+    headers,
+    body: formData,
+  });
+  
+  if (!response.ok) {
+    const errorData = await response.json().catch(() => ({}));
+    throw new Error(errorData.message || "Failed to upload photos");
+  }
+  return response.json();
+};
+
+export const deleteGalleryPhoto = async (token, url) => {
+  return request("/api/gallery/photos", {
+    method: "DELETE",
+    token,
+    body: { url },
+  });
+};
