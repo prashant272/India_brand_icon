@@ -156,6 +156,8 @@ app.get("/api/auth/google/callback", (req, res) => {
   res.redirect(307, `/auth/google/callback?${new URLSearchParams(req.query).toString()}`);
 });
 
+import visitRoutes from "./routes/visitRoutes.js";
+
 app.use("/api/auth", authRoutes);
 app.use("/api/nominations", nominationRoutes);
 app.use("/api/admin", adminRoutes);
@@ -165,6 +167,7 @@ app.use("/api/inquiries", inquiryRoutes);
 app.use("/api/developer", developerRoutes);
 app.use("/api/blogs", blogRoutes);
 app.use("/api/gallery", galleryRoutes);
+app.use("/api/visits", visitRoutes);
 
 // Global Error Handler
 app.use(errorHandler);

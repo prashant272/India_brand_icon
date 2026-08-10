@@ -8,6 +8,10 @@ const nominationSchema = new mongoose.Schema(
       required: true,
       default: "nominated as award",
     },
+    field: {
+      type: String,
+      trim: true,
+    },
     category: {
       type: String,
       required: function () {

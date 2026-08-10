@@ -34,6 +34,7 @@ export const nominationSchema = [
     body("organization").trim().notEmpty().withMessage("Organization name is required"),
 
     // Conditional validation
+    body("field").if(body("participationType").equals("nominated as award")).notEmpty().withMessage("Field is required"),
     body("category").if(body("participationType").equals("nominated as award")).notEmpty().withMessage("Category is required"),
     body("subCategory").if(body("participationType").equals("nominated as award")).notEmpty().withMessage("Sub-category is required"),
 
