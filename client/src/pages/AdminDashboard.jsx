@@ -351,7 +351,7 @@ export default function AdminDashboard() {
             <tr className="sticky top-0 z-40">
               {[
                 { label: "Participation", width: "180px" },
-                { label: "Category", width: "250px" },
+                { label: "Field & Category", width: "250px" },
                 { label: "Direct Contact", width: "180px" },
                 { label: "Nominee Entity", width: "280px" },
                 { label: "Workflow Status", width: "200px" },
@@ -395,6 +395,7 @@ export default function AdminDashboard() {
                 <td className="px-4 py-2.5">
                   {n.participationType === "nominated as award" ? (
                     <div className="space-y-1">
+                      {n.field && <div className="text-[9px] font-bold text-white/50 uppercase tracking-widest mb-0.5">{n.field}</div>}
                       <div className="text-sm font-black text-white leading-tight uppercase tracking-tight">{n.assignedCategory || n.category}</div>
                       <div className="text-[10px] font-bold text-white/30 uppercase tracking-widest">{n.subCategory}</div>
                     </div>
@@ -552,6 +553,7 @@ export default function AdminDashboard() {
           <tr className="sticky top-0 z-40">
             {[
               { label: "Nominee Entity", width: "300px" },
+              { label: "Field & Category", width: "250px" },
               { label: "Communication", width: "200px" },
               { label: "Digital Endpoint", width: "250px" },
               { label: "Workflow Logic", width: "250px" },
@@ -572,6 +574,17 @@ export default function AdminDashboard() {
               <tr key={n._id} className="group hover:bg-slate-800/40 transition-colors duration-300">
                 <td className="px-4 py-2.5">
                   <div className="text-sm font-black text-white uppercase tracking-tighter">{n.nomineeName}</div>
+                </td>
+                <td className="px-4 py-2.5">
+                  {n.participationType === "nominated as award" ? (
+                    <div className="space-y-1">
+                      {n.field && <div className="text-[9px] font-bold text-white/50 uppercase tracking-widest mb-0.5">{n.field}</div>}
+                      <div className="text-sm font-black text-white leading-tight uppercase tracking-tight">{n.assignedCategory || n.category}</div>
+                      <div className="text-[10px] font-bold text-white/30 uppercase tracking-widest">{n.subCategory}</div>
+                    </div>
+                  ) : (
+                    <span className="text-[10px] font-black text-white/10 uppercase tracking-widest">General Access</span>
+                  )}
                 </td>
                 <td className="px-4 py-2.5">
                   <div className="text-[11px] font-mono font-bold text-cyan-400/80 italic">{n.contactMobile || n.orgHeadMobile || "—"}</div>
@@ -1106,6 +1119,10 @@ export default function AdminDashboard() {
                           <input className={inputClass} value={editForm.participationType || ""} onChange={(e) => setEditForm({ ...editForm, participationType: e.target.value })} />
                         </div>
                         <div>
+                          <label className="text-[9px] font-black uppercase tracking-widest text-white/40 ml-1 mb-1.5 block">Choice of Field</label>
+                          <input className={inputClass} value={editForm.field || ""} onChange={(e) => setEditForm({ ...editForm, field: e.target.value })} />
+                        </div>
+                        <div>
                           <label className="text-[9px] font-black uppercase tracking-widest text-white/40 ml-1 mb-1.5 block">Category (User)</label>
                           <input className={inputClass} value={editForm.category || ""} onChange={(e) => setEditForm({ ...editForm, category: e.target.value })} />
                         </div>
@@ -1282,6 +1299,7 @@ export default function AdminDashboard() {
                           <span className="p-1.5 bg-[#d4af37]/10 rounded-lg text-xs">🏅</span> Classification
                         </h3>
                         <div className="grid sm:grid-cols-2 gap-5">
+                          <DetailItem label="Field" val={viewingNomination.field} />
                           <DetailItem label="Category" val={viewingNomination.category} />
                           <DetailItem label="Sub Category" val={viewingNomination.subCategory} />
                           {viewingNomination.otherSubCategory && <DetailItem label="Custom Category" val={viewingNomination.otherSubCategory} />}

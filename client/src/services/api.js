@@ -304,3 +304,15 @@ export const deleteGalleryPhoto = async (token, url) => {
     body: { url },
   });
 };
+
+// ==========================================
+// VISIT COUNTER
+// ==========================================
+
+export const recordVisit = async () => {
+  return request("/api/visits/record", { method: "POST" });
+};
+
+export const getVisitCount = async () => {
+  return request("/api/visits/count", { method: "GET" });
+};

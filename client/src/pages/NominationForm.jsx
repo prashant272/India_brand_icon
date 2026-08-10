@@ -5,199 +5,14 @@ import { Crown } from "lucide-react";
 import { createNomination, fetchNominationById, updateUserNomination } from "../services/api.js";
 import { useAuth } from "../context/AuthContext.jsx";
 import { PageHero } from "../components/Motion.jsx";
+import categoryMap from "../data/categoryMap.js";
 
-const categoryMap = {
-  "Business & Entrepreneurship": {
-    "Overall Excellence": [
-      "Entrepreneur of the Year",
-      "Business Excellence Award",
-      "Outstanding Enterprise of the Year",
-      "Most Trusted Business Brand",
-      "Best Emerging Business of the Year",
-    ],
-    "Entrepreneur Type": [
-      "Young Entrepreneur of the Year (Under 35)",
-      "Women Entrepreneur of the Year",
-      "Social Entrepreneur of the Year",
-      "First-Generation Entrepreneur of the Year",
-      "Serial Entrepreneur of the Year",
-      "Rural & Grassroots Entrepreneur of the Year",
-    ],
-    "Business Growth & Scale": [
-      "Excellence in Business Growth & Expansion",
-      "Best Family Business of the Year",
-      "Best Export-Driven Enterprise",
-      "Best Franchise Business of the Year",
-      "Best MSME / SME of the Year",
-    ],
-    "Startup Excellence": [
-      "Best Startup of the Year",
-      "Most Innovative Startup",
-      "Best D2C Brand of the Year",
-      "Best Social Impact Startup",
-      "Rising Startup to Watch",
-    ],
-  },
 
-  "Leadership & Management": {
-    "C-Suite & Executive Leadership": [
-      "CEO of the Year",
-      "MD / Chairman of the Year",
-      "COO of the Year",
-      "CFO of the Year",
-      "CTO / CIO of the Year",
-    ],
-    "Leadership Excellence": [
-      "Visionary Business Leader of the Year",
-      "Transformational Leader of the Year",
-      "Emerging Business Leader of the Year",
-      "Outstanding Women Leader of the Year",
-      "Young Leader of the Year (Under 35)",
-    ],
-    "Functional Leadership": [
-      "Outstanding HR & People Leader of the Year",
-      "Excellence in Corporate Governance & Ethics",
-      "Best Sales & Business Development Leader",
-      "Best Marketing Leader of the Year",
-      "Excellence in Operations Leadership",
-    ],
-    "Lifetime & Legacy": [
-      "Lifetime Achievement Award",
-      "Legend of Industry Award",
-      "Outstanding Contribution to Indian Business",
-      "Icon of the Year",
-    ],
-  },
-
-  "Brand & Marketing Excellence": {
-    "Brand Awards": [
-      "Brand of the Year",
-      "Most Trusted Brand of the Year",
-      "Rising Brand of the Year",
-      "Best Regional Brand of the Year",
-      "Best Heritage Brand of the Year",
-      "Best Homegrown Indian Brand",
-    ],
-    "Marketing & Campaign Awards": [
-      "Excellence in Digital Marketing",
-      "Best Social Media Brand of the Year",
-      "Outstanding Advertising Campaign of the Year",
-      "Best Content Marketing Initiative",
-      "Best Influencer Marketing Campaign",
-      "Excellence in Performance Marketing",
-    ],
-    "Customer Experience": [
-      "Excellence in Customer Experience",
-      "Best Customer Loyalty Programme",
-      "Most Customer-Centric Brand",
-      "Best After-Sales Service Brand",
-      "Excellence in Brand Communication",
-    ],
-  },
-
-  "Innovation & Technology": {
-    "Innovation Excellence": [
-      "Business Innovation Award",
-      "Most Innovative Product of the Year",
-      "Best Disruptive Business Model",
-      "Excellence in Research & Development",
-      "Best Made-in-India Innovation",
-    ],
-    "Technology-Driven Business": [
-      "Best Tech-Driven Enterprise",
-      "Excellence in AI & Automation Adoption",
-      "Best Digital Transformation Initiative",
-      "Best E-Commerce Business of the Year",
-      "Best Fintech Innovation of the Year",
-    ],
-    "Emerging Tech Sectors": [
-      "Best SaaS / Software Company",
-      "Best AgriTech Company",
-      "Best EdTech Company",
-      "Best CleanTech / GreenTech Company",
-      "Best HealthTech Company",
-      "Best Logistics & Supply Chain Tech Company",
-    ],
-  },
-
-  "Social Impact & CSR": {
-    "CSR Excellence": [
-      "Excellence in Corporate Social Responsibility",
-      "Best CSR Initiative of the Year",
-      "Outstanding Community Development Programme",
-      "Best Workplace Inclusivity Initiative",
-      "Environmental Sustainability Excellence Award",
-    ],
-    "Social Impact": [
-      "Outstanding Contribution to Education",
-      "Excellence in Skill Development & Livelihood",
-      "Rural Development & Empowerment Award",
-      "Women Empowerment Initiative of the Year",
-      "Best NGO / Non-Profit Partner Brand",
-      "Best Green Business of the Year",
-    ],
-  },
-
-  "Sector-Specific Excellence": {
-    "Manufacturing & Industry": [
-      "Best Manufacturing Company of the Year",
-      "Excellence in Industrial Innovation",
-      "Best Export-Oriented Manufacturer",
-      "Best MSME Manufacturer of the Year",
-      "Make in India Excellence Award",
-      "Best Industrial Brand of the Year",
-    ],
-    "Real Estate & Infrastructure": [
-      "Best Real Estate Developer of the Year",
-      "Excellence in Affordable Housing",
-      "Best Commercial Real Estate Project",
-      "Best Sustainable Construction Brand",
-      "Outstanding Infrastructure Company of the Year",
-    ],
-    "Education & Skill Development": [
-      "Best Educational Institution of the Year",
-      "Best Skill Development Organisation",
-      "Outstanding School of the Year",
-      "Best Higher Education Institute",
-      "Best Vocational Training Brand",
-      "Best EdTech Platform of the Year",
-    ],
-    "Healthcare Business & Management": [
-      "Best Healthcare Business Leader",
-      "Outstanding Hospital Brand of the Year",
-      "Best Wellness Brand of the Year",
-      "Best Pharma Brand of the Year",
-      "Best Healthcare Startup of the Year",
-    ],
-    "Retail, FMCG & Consumer Goods": [
-      "Best Retail Brand of the Year",
-      "Best FMCG Brand of the Year",
-      "Best Homegrown Consumer Brand",
-      "Best Luxury Brand of the Year",
-      "Best Food & Beverage Brand of the Year",
-      "Best Fashion & Lifestyle Brand",
-    ],
-    "Financial Services": [
-      "Best NBFC / Microfinance Brand",
-      "Best Insurance Brand of the Year",
-      "Best Wealth Management Firm",
-      "Excellence in Financial Inclusion",
-      "Best Fintech Brand of the Year",
-      "Best Banking Service Excellence Award",
-    ],
-    "Media, Entertainment & PR": [
-      "Best Media Brand of the Year",
-      "Best PR & Communications Agency",
-      "Outstanding Content Creator / Digital Influencer",
-      "Best OTT / Streaming Platform",
-      "Excellence in Journalism & Media Leadership",
-    ],
-  },
-};
 
 const initialForm = {
   nominationType: "indiaBrandIcon",
   participationType: "nominated as award", // default
+  field: "",
   category: "",
   subCategory: "",
   awardTitle: "",
@@ -450,7 +265,8 @@ export default function NominationForm() {
     }
   };
 
-  const groupedSubCategories = categoryMap[form.category] || {};
+  const availableCategories = form.field && categoryMap[form.field] ? categoryMap[form.field] : {};
+  const groupedSubCategories = form.category && availableCategories[form.category] ? availableCategories[form.category] : {};
 
   const getSelectClass = (name) => {
     const base = "w-full bg-black/60 border rounded-lg px-4 py-3 text-white outline-none transition-all focus:ring-2 focus:ring-[#d4af37]/50";
@@ -518,7 +334,7 @@ export default function NominationForm() {
 
               <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6 pt-4">
                 {[
-                  { id: "nominated as award", prefix: "Apply for", highlight: "Awarded", primary: true },
+                  { id: "nominated as award", prefix: "Apply for", highlight: "Award", primary: true },
                   { id: "attend as speaker", prefix: "Attend as", highlight: "Speaker", primary: false },
                   { id: "attend as exhibitor", prefix: "Attend as", highlight: "Exhibitor", primary: false },
                   { id: "attend as sponsor", prefix: "Attend as", highlight: "Sponsor", primary: false },
@@ -572,17 +388,34 @@ export default function NominationForm() {
                   </div>
 
                   <div>
+                    <label className="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">Choice of Field *</label>
+                    <select
+                      name="field"
+                      ref={el => inputRef.current.field = el}
+                      value={form.field}
+                      onChange={handleChange}
+                      className={getSelectClass("field")}
+                    >
+                      <option value="" className="bg-[#3a1418]">Select Field</option>
+                      {Object.keys(categoryMap).map((f) => (
+                        <option key={f} value={f} className="bg-[#3a1418]">{f}</option>
+                      ))}
+                    </select>
+                  </div>
+
+                  <div>
                     <label className="block text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">Category *</label>
                     <select
                       name="category"
                       ref={el => inputRef.current.category = el}
                       value={form.category}
                       onChange={handleChange}
+                      disabled={!form.field}
                       className={getSelectClass("category")}
                     >
                       <option value="" className="bg-[#3a1418]">Select Category</option>
-                      {Object.keys(categoryMap).map((t) => (
-                        <option key={t} value={t} className="bg-[#3a1418]">{t}</option>
+                      {Object.keys(availableCategories).map((c) => (
+                        <option key={c} value={c} className="bg-[#3a1418]">{c}</option>
                       ))}
                     </select>
                   </div>

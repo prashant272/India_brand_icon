@@ -1,10 +1,36 @@
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { AuroraBackground, PageHero } from "./Motion";
+import { recordVisit, getVisitCount } from "../services/api";
 
 const blueGrad = `linear-gradient(90deg, #78350f 0%, #d97706 40%, #fbbf24 70%, #d97706 100%)`;
 const bgGrad = "linear-gradient(120deg, #020617 0%, #064e3b 63%, #1e293b 100%)";
 
 export default function Footer() {
+  const [visitCount, setVisitCount] = useState(126420);
+
+  useEffect(() => {
+    async function trackVisit() {
+      try {
+        const hasVisited = sessionStorage.getItem("hasVisited");
+        let response;
+        if (!hasVisited) {
+          response = await recordVisit();
+          sessionStorage.setItem("hasVisited", "true");
+        } else {
+          response = await getVisitCount();
+        }
+        
+        if (response && response.count !== undefined) {
+          setVisitCount(response.count);
+        }
+      } catch (err) {
+        console.error("Failed to track visit:", err);
+      }
+    }
+    trackVisit();
+  }, []);
+
   return (
     <footer
       className="mt-0"
@@ -277,7 +303,7 @@ export default function Footer() {
 
           {/* BOTTOM BAR */}
           <div
-            className="flex flex-col lg:flex-row items-start lg:items-center justify-center gap-2 lg:gap-3 text-left lg:text-center text-xs md:text-sm py-5 px-5 border-t border-white/5"
+            className="flex flex-col lg:flex-row items-center justify-center gap-2 lg:gap-3 text-center text-xs md:text-sm py-5 px-5 border-t border-white/5 w-full"
             style={{ background: "rgba(0,0,0,0.2)" }}
           >
             <span
@@ -301,8 +327,17 @@ export default function Footer() {
             </span>
           </div>
 
-          {/* Developer Credit Badge */}
-          <div className="gap-2 mt-4 flex justify-start sm:justify-center pb-8 px-5">
+          {/* BOTTOM-MOST ROW: Visit Counter & Developer Credit */}
+          <div className="relative flex flex-col sm:flex-row items-center justify-center w-full px-5 pb-8 mt-4 gap-4">
+            {/* Left: Visit Counter */}
+            <div className="sm:absolute sm:left-5 flex items-center gap-2 bg-black/40 px-4 py-2 rounded-full border border-amber-500/20 shadow-inner">
+              <span className="text-amber-500 text-lg">👁️</span>
+              <span className="text-slate-300 text-xs sm:text-sm font-medium tracking-wide">
+                Total Visits: <strong className="text-amber-400 ml-1">{visitCount !== null ? visitCount.toLocaleString() : "..."}</strong>
+              </span>
+            </div>
+
+            {/* Center: Developer Credit Badge */}
             <a
               href="https://primeimpact.in"
               target="_blank"

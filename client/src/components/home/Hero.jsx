@@ -111,8 +111,17 @@ function Hero() {
                   <div className="absolute bottom-4 left-4 w-4 h-4 border-b-2 border-l-2 border-[#60A5FA] rounded-bl-lg" />
                   <div className="absolute bottom-4 right-4 w-4 h-4 border-b-2 border-r-2 border-[#60A5FA] rounded-br-lg" />
 
-                  {/* Banner Image */}
-                  <img src={event.images?.[0] || event.banner} alt="banner" className="w-full h-full object-cover rounded-2xl" />
+                  {/* YouTube Video Banner */}
+                  <div className="w-full rounded-2xl overflow-hidden aspect-video relative">
+                    <iframe
+                      src="https://www.youtube.com/embed/k8KaLwJPhSQ?autoplay=1&mute=1&loop=1&playlist=k8KaLwJPhSQ&controls=1&rel=0"
+                      title="YouTube video player"
+                      frameBorder="0"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allowFullScreen
+                      className="absolute top-0 left-0 w-full h-full"
+                    ></iframe>
+                  </div>
 
                   {/* Dual Equal-Width Buttons */}
                   <div className="grid grid-cols-2 gap-2.5 mt-4 sm:mt-6">
