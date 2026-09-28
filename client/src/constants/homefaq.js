@@ -9,7 +9,7 @@ export const homeFaqs = [
     },
     {
         q: "What is the nomination process and are there any charges?",
-        a: "Nomination is completely free of charge. Simply visit the website and fill in the nomination form, or call the helpline at +91-9821020995. Final winners who wish to attend the ceremony may select a promotional package based on their media and publicity requirements.",
+        a: "Nomination is completely free of charge. Simply visit the website and fill in the nomination form, or call the helpline at +91-9266392666. Final winners who wish to attend the ceremony may select a promotional package based on their media and publicity requirements.",
     },
     {
         q: "How are the winners selected?",

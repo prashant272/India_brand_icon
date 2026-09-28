@@ -276,8 +276,8 @@ export default function Footer() {
                   <div className="grid grid-cols-1 gap-y-2">
                     <div className="flex items-center gap-2">
                       <span className="inline-block w-5 text-amber-500">📞</span>
-                      <a href="tel:+919821020995" className="hover:text-amber-400 transition-all text-sm font-semibold">
-                        +91 98210 20995 <span className="text-[10px] opacity-60 font-normal uppercase ml-1"></span>
+                      <a href="tel:+919266392666" className="hover:text-amber-400 transition-all text-sm font-semibold">
+                        +91 92663 92666 <span className="text-[10px] opacity-60 font-normal uppercase ml-1"></span>
                       </a>
                     </div>
                     <div className="flex items-center gap-2">

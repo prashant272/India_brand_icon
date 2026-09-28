@@ -7,11 +7,11 @@ const socialLinks = [
   { icon: Instagram, href: "https://www.instagram.com/TimeCyberMedia/", label: "Instagram", color: "from-pink-600 to-purple-600" },
   { icon: Youtube, href: "https://www.youtube.com/@timecybermedia", label: "YouTube", color: "from-red-600 to-red-500" },
   { icon: Linkedin, href: "https://www.linkedin.com/company/timecybermedia?originalSubdomain=in", label: "LinkedIn", color: "from-blue-700 to-blue-600" },
-  { icon: MessageCircle, href: "https://wa.me/919821020995", label: "WhatsApp", color: "from-amber-600 to-amber-500" },
+  { icon: MessageCircle, href: "https://wa.me/919266392666", label: "WhatsApp", color: "from-amber-600 to-amber-500" },
 ];
 
 const phones = [
-  { tel: "+919821020995", display: "+91-98210 20995", icon: "📞" },
+  { tel: "+919266392666", display: "+91-92663 92666", icon: "📞" },
   { tel: "+919873004416", display: "+91-98730 04416", icon: "📞" },
 ];
 
@@ -242,7 +242,7 @@ export default function Contact() {
                     For <strong className="text-white">nominations</strong>, <strong className="text-white">sponsorships</strong>, or <strong className="text-white">media partnerships</strong> — reach out directly via the contact details above or WhatsApp.
                   </p>
                   <a
-                    href="https://wa.me/919821020995"
+                    href="https://wa.me/919266392666"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="btn-primary text-sm w-full justify-center"
